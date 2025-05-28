@@ -1,4 +1,4 @@
-package com.LRProduct.api.account.utils;
+package com.LRProduct.api.utils;
 
 
 import java.util.Hashtable;

@@ -1,14 +1,15 @@
-package com.LRProduct.api.account.utils;
+package com.LRProduct.api.utils;
 
 import com.LRProduct.api.account.model.Account;
-import com.LRProduct.api.account.model.AccountRequestModel;
+import com.LRProduct.api.account.model.AccountRequestCreate;
+import com.LRProduct.api.account.model.AccountRequestLogin;
 import com.LRProduct.api.account.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ServiceAccount {
@@ -16,13 +17,13 @@ public class ServiceAccount {
     @Autowired
     AccountRepository accountRepository;
 
-    public void validateAccountRequest(AccountRequestModel request){
+    public void validateAccountRequest(AccountRequestCreate request){
         if(!Objects.equals(request.getPassword(), request.getPasswordTwo())){
             throw new IllegalArgumentException("As senhas não coincidem");
         }
     }
 
-    public Account createNewAccount(AccountRequestModel accountRequestModel){
+    public Account createNewAccount(AccountRequestCreate accountRequestModel){
 
         validateAccountRequest(accountRequestModel);
 
@@ -36,5 +37,6 @@ public class ServiceAccount {
 
         return account;
     }
+
 
 }

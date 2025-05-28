@@ -32,7 +32,16 @@ public class Account {
     private LocalDate birth;
 
     @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
+
+    @Enumerated(EnumType.STRING)
     private Status status = Status.ON;
+
+    public enum Role{
+        USER,
+        ADMIN,
+        OPERATOR
+    }
 
     public enum Status{
         ON,
