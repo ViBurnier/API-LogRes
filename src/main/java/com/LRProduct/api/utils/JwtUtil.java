@@ -3,6 +3,7 @@ package com.LRProduct.api.utils;
 import com.LRProduct.api.account.model.Account;
 import com.LRProduct.api.account.repository.AccountRepository;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -54,7 +55,6 @@ public class JwtUtil {
         }
     }
 
-
         private Instant creationDate() {
         return ZonedDateTime.now(ZoneId.of("America/Sao_Paulo")).toInstant();
     }
@@ -74,22 +74,34 @@ public class JwtUtil {
         return null;
     }
 
-    public Long getUserId(String token) {
+    public Long getUserId(String token){
         try{
+            Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
 
+            JWTVerifier verifier = JWT.require(algorithm).withIssuer(ISSUER).build();
+
+            DecodedJWT decodedJWT = verifier.verify(token);
+
+            return decodedJWT.getClaim("id").asLong();
+        } catch (JWTVerificationException e) {
+            return null;
         }
     }
 
     public Account getLoggedUser(HttpServletRequest request, AccountRepository repo){
         String token = extractTokenFromCookies(request);
 
-        tokenValid(token);
-
         if (token == null) {
             return null;
         }
 
-        Long accountId = getUserId(token);
+        tokenValid(token);
+
+        Long userId = getUserId(token);
+
+        return repo.findById(userId)
+                .filter(account -> account.getStatus() == Account.Status.ON)
+                .orElse(null);
 
     }
 

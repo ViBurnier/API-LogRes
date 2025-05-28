@@ -9,6 +9,7 @@ import com.LRProduct.api.utils.ServiceAccount;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,16 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @Data
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/account")
 public class AccountController {
-
+    @Autowired
     ServiceAccount serviceAccount;
-    JwtUtil jwtUtil;
-    @PostMapping("/create")
-    public ResponseEntity<?> register(@Valid @RequestBody AccountRequestCreate accountRequestModel){
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@Valid @RequestBody AccountRequestCreate accountRequestCreate){
 
         try {
-            Account account = serviceAccount.createNewAccount(accountRequestModel);
+            Account account = serviceAccount.createNewAccount(accountRequestCreate);
 
             AccountResponseModel accountResponseModel = new AccountResponseModel(
                     account.getEmail(),

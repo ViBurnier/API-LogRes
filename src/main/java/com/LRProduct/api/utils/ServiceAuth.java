@@ -2,6 +2,7 @@ package com.LRProduct.api.utils;
 
 import com.LRProduct.api.account.model.Account;
 import com.LRProduct.api.account.model.AccountRequestLogin;
+import com.LRProduct.api.account.model.AccountResponseLogin;
 import com.LRProduct.api.account.repository.AccountRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +21,11 @@ public class ServiceAuth {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
     JwtUtil jwtUtil;
+
+    @Autowired
     CookieService cookie;
 
     public Account validateAccountLogin(HttpServletRequest request, Optional<Account> opt, String password){
@@ -49,7 +54,7 @@ public class ServiceAuth {
         return account;
     }
 
-    public void loginAccount(AccountRequestLogin accountRequestLogin, HttpServletRequest request, HttpServletResponse response){
+    public AccountResponseLogin  loginAccount(AccountRequestLogin accountRequestLogin, HttpServletRequest request, HttpServletResponse response){
 
         String email = accountRequestLogin.getEmail();
 
@@ -64,5 +69,10 @@ public class ServiceAuth {
         cookie.cookieToken(token, response);
         cookie.cookieUser(account, response);
 
+        return new AccountResponseLogin(
+                account.getEmail(),
+                account.getPassword(),
+                token
+        );
     }
 }
