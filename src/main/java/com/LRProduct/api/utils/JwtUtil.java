@@ -24,7 +24,7 @@ public class JwtUtil {
     private static final String SECRET_KEY = "4Z^XrroxR@dWxqf$mTTKwW$!@#qGr4P";
     private static final String ISSUER = "apiLogREs";
 
-    public String generateToken(String subject, Map<String, Object> claims){
+    public String generateToken(String subject, Long id){
         try{
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
 
@@ -33,7 +33,7 @@ public class JwtUtil {
                     .withIssuedAt(creationDate())
                     .withExpiresAt(expirationDate())
                     .withSubject(subject)
-                    .withClaim(claims)
+                    .withClaim("id", id)
                     .sign(algorithm);
         }
         catch (JWTCreationException exception){
