@@ -5,6 +5,7 @@ import com.LRProduct.api.account.model.AccountRequestLogin;
 import com.LRProduct.api.account.model.AccountResponseLogin;
 import com.LRProduct.api.account.repository.AccountRepository;
 import com.LRProduct.api.utils.ApiException;
+import com.LRProduct.api.utils.ApiResponse;
 import com.LRProduct.api.utils.CookieService;
 import com.LRProduct.api.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,24 +37,21 @@ public class ServiceAuth {
         Map<String, Object> error = new HashMap<>();
 
         if(getToken != null){
-            jwtUtil.tokenValid(getToken);
-            error.put("code", 400);
-            error.put("message", "Voce ja esta logado.");
-            throw new ApiException(error);
+            throw new ApiException("Você já esta logado.", "400");
         }
 
         if (opt.isEmpty()) {
-            throw new IllegalArgumentException("Conta nao encontrado.");
+            throw new ApiException("Conta não encontrada.", "404");
         }
 
         Account account = opt.get();
 
         if (!BCrypt.checkpw(password, account.getPassword())) {
-            throw new IllegalArgumentException("Senha incorreta.");
+            throw new ApiException("Senha incorreta.", "401");
         }
 
         if(!account.getStatus().name().equals("ON")){
-            throw new IllegalArgumentException("Conta desativada.");
+            throw new ApiException("Conta desativada.", "403");
         }
 
         return account;
@@ -65,9 +63,9 @@ public class ServiceAuth {
 
         String password = accountRequestLogin.getPassword();
 
-        Optional<Account> opt = accountRepository.findByEmail(email.trim().toLowerCase());
+        Optional<Account> optFind = accountRepository.findByEmail(email.trim().toLowerCase());
 
-        Account account = validateAccountLogin(request, opt, password);
+        Account account = validateAccountLogin(request, optFind, password);
 
         String token = jwtUtil.generateToken(email, account.getId());
 

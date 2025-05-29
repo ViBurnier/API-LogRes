@@ -1,16 +1,15 @@
 package com.LRProduct.api.utils;
 
-import java.util.Map;
 
 public class ApiException extends RuntimeException{
+    private final String code;
 
-    private final Map<String, Object> body;
-
-    public ApiException(Map<String, Object> body){
-        this.body = body;
+    public ApiException(String message, String code){
+        super(message);
+        this.code =  code;
     }
 
-    public Map<String, Object> getBody() {
-        return body;
+    public String getCode(){
+        return code;
     }
 }

@@ -2,6 +2,7 @@ package com.LRProduct.api.account.controller;
 
 import com.LRProduct.api.account.model.AccountRequestLogin;
 import com.LRProduct.api.account.model.AccountResponseLogin;
+import com.LRProduct.api.utils.ApiException;
 import com.LRProduct.api.utils.ApiResponse;
 import com.LRProduct.api.account.service.ServiceAuth;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,9 +32,9 @@ public class LoginController {
             AccountResponseLogin data = serviceAuth.loginAccount(accountRequestLogin, request, response);
 
             return ResponseEntity.ok(ApiResponse.success("Login realizado com sucesso.", "200", data));
-        }catch (IllegalArgumentException e) {
+        }catch (ApiException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(ApiResponse.error(e.getMessage(), "400"));
+                    .body(ApiResponse.error(e.getMessage(), e.getCode()));
         }
 
 
