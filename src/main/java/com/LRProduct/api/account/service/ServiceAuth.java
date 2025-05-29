@@ -1,19 +1,17 @@
-package com.LRProduct.api.utils;
+package com.LRProduct.api.account.service;
 
 import com.LRProduct.api.account.model.Account;
 import com.LRProduct.api.account.model.AccountRequestLogin;
 import com.LRProduct.api.account.model.AccountResponseLogin;
 import com.LRProduct.api.account.repository.AccountRepository;
+import com.LRProduct.api.utils.CookieService;
+import com.LRProduct.api.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -38,7 +36,7 @@ public class ServiceAuth {
         }
 
         if (opt.isEmpty()) {
-            throw new IllegalArgumentException("Conta nao encontrado.");
+            throw new IllegalArgumentException("Conta nao encontrada.");
         }
 
         Account account = opt.get();

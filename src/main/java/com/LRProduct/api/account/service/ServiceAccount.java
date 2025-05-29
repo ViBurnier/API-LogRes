@@ -1,15 +1,13 @@
-package com.LRProduct.api.utils;
+package com.LRProduct.api.account.service;
 
 import com.LRProduct.api.account.model.Account;
 import com.LRProduct.api.account.model.AccountRequestCreate;
-import com.LRProduct.api.account.model.AccountRequestLogin;
 import com.LRProduct.api.account.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class ServiceAccount {
