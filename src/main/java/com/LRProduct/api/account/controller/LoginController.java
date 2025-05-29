@@ -33,7 +33,7 @@ public class LoginController {
 
             return ResponseEntity.ok(ApiResponse.success("Login realizado com sucesso.", "200", data));
         }catch (ApiException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            return ResponseEntity.status(e.getHttpStatus())
                     .body(ApiResponse.error(e.getMessage(), e.getCode()));
         }
 

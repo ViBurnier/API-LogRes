@@ -11,6 +11,7 @@ import com.LRProduct.api.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -37,21 +38,21 @@ public class ServiceAuth {
         Map<String, Object> error = new HashMap<>();
 
         if(getToken != null){
-            throw new ApiException("Você já esta logado.", "400");
+            throw new ApiException("Você já esta logado.", "400", HttpStatus.BAD_REQUEST);
         }
 
         if (opt.isEmpty()) {
-            throw new ApiException("Conta não encontrada.", "404");
+            throw new ApiException("Conta não encontrada.", "404", HttpStatus.NOT_FOUND);
         }
 
         Account account = opt.get();
 
         if (!BCrypt.checkpw(password, account.getPassword())) {
-            throw new ApiException("Senha incorreta.", "401");
+            throw new ApiException("Senha incorreta.", "401", HttpStatus.UNAUTHORIZED);
         }
 
         if(!account.getStatus().name().equals("ON")){
-            throw new ApiException("Conta desativada.", "403");
+            throw new ApiException("Conta desativada.", "403", HttpStatus.FORBIDDEN);
         }
 
         return account;
