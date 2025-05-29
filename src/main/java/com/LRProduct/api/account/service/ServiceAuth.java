@@ -4,6 +4,7 @@ import com.LRProduct.api.account.model.Account;
 import com.LRProduct.api.account.model.AccountRequestLogin;
 import com.LRProduct.api.account.model.AccountResponseLogin;
 import com.LRProduct.api.account.repository.AccountRepository;
+import com.LRProduct.api.utils.ApiException;
 import com.LRProduct.api.utils.CookieService;
 import com.LRProduct.api.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,7 +39,7 @@ public class ServiceAuth {
             jwtUtil.tokenValid(getToken);
             error.put("code", 400);
             error.put("message", "Voce ja esta logado.");
-            throw new IllegalArgumentException("erro: ", error);
+            throw new ApiException(error);
         }
 
         if (opt.isEmpty()) {
