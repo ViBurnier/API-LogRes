@@ -24,7 +24,6 @@ public class LoginController {
     @Autowired
     ServiceAuth serviceAuth;
 
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody AccountRequestLogin accountRequestLogin, HttpServletRequest request, HttpServletResponse response){
 
