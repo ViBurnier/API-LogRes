@@ -3,8 +3,10 @@ package com.LRProduct.api.account.controller;
 import com.LRProduct.api.account.model.Account;
 import com.LRProduct.api.account.model.AccountRequestCreate;
 import com.LRProduct.api.account.model.AccountResponseModel;
+import com.LRProduct.api.utils.ApiException;
 import com.LRProduct.api.utils.ApiResponse;
 import com.LRProduct.api.account.service.ServiceAccount;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,10 +27,10 @@ public class AccountController {
     ServiceAccount serviceAccount;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody AccountRequestCreate accountRequestCreate){
+    public ResponseEntity<?> register(@Valid @RequestBody AccountRequestCreate accountRequestCreate, HttpServletRequest request){
 
         try {
-            Account account = serviceAccount.createNewAccount(accountRequestCreate);
+            Account account = serviceAccount.createNewAccount(accountRequestCreate, request);
 
             AccountResponseModel accountResponseModel = new AccountResponseModel(
                     account.getEmail(),
@@ -36,8 +38,9 @@ public class AccountController {
                     account.getBirth()
             );
             return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success("Conta criada com successo", "201", accountResponseModel));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.error(e.getMessage(), "400"));
+        } catch (ApiException e) {
+            return ResponseEntity.status(e.getHttpStatus())
+                    .body(ApiResponse.error(e.getMessage(), e.getCode()));
         }
     }
 }
