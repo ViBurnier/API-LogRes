@@ -1,14 +1,17 @@
-package com.LRProduct.api.utils;
+package com.LRProduct.api.account.service;
 
 import com.LRProduct.api.account.model.Account;
 import com.LRProduct.api.account.model.AccountRequestLogin;
 import com.LRProduct.api.account.model.AccountResponseLogin;
 import com.LRProduct.api.account.repository.AccountRepository;
+import com.LRProduct.api.utils.ApiException;
+import com.LRProduct.api.utils.ApiResponse;
+import com.LRProduct.api.utils.CookieService;
+import com.LRProduct.api.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -32,23 +35,24 @@ public class ServiceAuth {
 
         String getToken = cookie.getTokenFromRequest(request);
 
+        Map<String, Object> error = new HashMap<>();
+
         if(getToken != null){
-            jwtUtil.tokenValid(getToken);
-            throw new IllegalArgumentException("Voce ja esta logado.");
+            throw new ApiException("Você já esta logado.", "400", HttpStatus.BAD_REQUEST);
         }
 
         if (opt.isEmpty()) {
-            throw new IllegalArgumentException("Conta nao encontrado.");
+            throw new ApiException("Conta não encontrada.", "404", HttpStatus.NOT_FOUND);
         }
 
         Account account = opt.get();
 
         if (!BCrypt.checkpw(password, account.getPassword())) {
-            throw new IllegalArgumentException("Senha incorreta.");
+            throw new ApiException("Senha incorreta.", "401", HttpStatus.UNAUTHORIZED);
         }
 
         if(!account.getStatus().name().equals("ON")){
-            throw new IllegalArgumentException("Conta desativada.");
+            throw new ApiException("Conta desativada.", "403", HttpStatus.FORBIDDEN);
         }
 
         return account;
@@ -60,9 +64,9 @@ public class ServiceAuth {
 
         String password = accountRequestLogin.getPassword();
 
-        Optional<Account> opt = accountRepository.findByEmail(email.trim().toLowerCase());
+        Optional<Account> optFind = accountRepository.findByEmail(email.trim().toLowerCase());
 
-        Account account = validateAccountLogin(request, opt, password);
+        Account account = validateAccountLogin(request, optFind, password);
 
         String token = jwtUtil.generateToken(email, account.getId());
 
