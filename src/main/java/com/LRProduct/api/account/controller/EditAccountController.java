@@ -27,7 +27,6 @@ public class EditAccountController {
     @PutMapping("/edit")
     public ResponseEntity<?> editController(@Valid @RequestBody AccountRequestEdit accountRequestEdit, HttpServletRequest request){
         try{
-
             AccountResponseEdit data = serviceEdit.editAccount(accountRequestEdit, request);
 
             return ResponseEntity.ok(ApiResponse.success("Conta editada com sucesso.", "200", data));

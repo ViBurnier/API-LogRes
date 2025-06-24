@@ -31,7 +31,7 @@ public class ServiceAuth {
     @Autowired
     CookieService cookie;
 
-    public Account validateAccountLogin(HttpServletRequest request, Optional<Account> opt, String password){
+    public Account validateLoginAccount(HttpServletRequest request, Optional<Account> opt, String password){
 
         String getToken = cookie.getTokenFromRequest(request);
 
@@ -66,7 +66,7 @@ public class ServiceAuth {
 
         Optional<Account> optFind = accountRepository.findByEmail(email.trim().toLowerCase());
 
-        Account account = validateAccountLogin(request, optFind, password);
+        Account account = validateLoginAccount(request, optFind, password);
 
         String token = jwtUtil.generateToken(email, account.getId());
 

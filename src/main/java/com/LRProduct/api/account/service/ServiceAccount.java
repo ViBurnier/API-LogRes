@@ -5,6 +5,7 @@ import com.LRProduct.api.account.model.AccountRequestCreate;
 import com.LRProduct.api.account.repository.AccountRepository;
 import com.LRProduct.api.utils.ApiException;
 import com.LRProduct.api.utils.CookieService;
+import com.LRProduct.api.utils.FindByEmail;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,9 @@ public class ServiceAccount {
     @Autowired
     CookieService cookie;
 
-    public void validateAccountRequest(AccountRequestCreate accountRequest, HttpServletRequest httpServletRequest){
+    @Autowired
+    FindByEmail findByEmail;
+    public void validateCreateNewAccount(AccountRequestCreate accountRequest, HttpServletRequest httpServletRequest){
 
         String getToken = cookie.getTokenFromRequest(httpServletRequest);
 
@@ -35,7 +38,7 @@ public class ServiceAccount {
         //verifica a disponibilidade do email.
         Optional<Account> email = accountRepository.findByEmail(accountRequest.getEmail());
         if(email.isPresent()){
-           throw new ApiException("Email não disponível.", "400", HttpStatus.BAD_REQUEST);
+            throw new ApiException("Email não disponível.", "400", HttpStatus.BAD_REQUEST);
         }
 
         if(!Objects.equals(accountRequest.getPassword(), accountRequest.getPasswordTwo())){
@@ -46,7 +49,7 @@ public class ServiceAccount {
 
     public Account createNewAccount(AccountRequestCreate accountRequestModel, HttpServletRequest request){
 
-        validateAccountRequest(accountRequestModel, request);
+        validateCreateNewAccount(accountRequestModel, request);
 
         Account account = new Account();
         account.setName(accountRequestModel.getName());
