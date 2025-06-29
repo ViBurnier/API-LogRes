@@ -52,7 +52,7 @@ public class ServiceAuth {
         }
 
         if(!account.getStatus().name().equals("ON")){
-            throw new ApiException("Conta desativada.", "403", HttpStatus.FORBIDDEN);
+            throw new ApiException("Conta desativada.", "401", HttpStatus.FORBIDDEN);
         }
 
         return account;

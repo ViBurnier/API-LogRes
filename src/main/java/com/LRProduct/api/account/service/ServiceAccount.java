@@ -24,8 +24,7 @@ public class ServiceAccount {
     @Autowired
     CookieService cookie;
 
-    @Autowired
-    FindByEmail findByEmail;
+
     public void validateCreateNewAccount(AccountRequestCreate accountRequest, HttpServletRequest httpServletRequest){
 
         String getToken = cookie.getTokenFromRequest(httpServletRequest);

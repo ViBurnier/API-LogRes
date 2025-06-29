@@ -2,11 +2,10 @@ package com.LRProduct.api.account.controller;
 
 import com.LRProduct.api.account.model.AccountRequestEdit;
 import com.LRProduct.api.account.model.AccountResponseEdit;
-import com.LRProduct.api.account.service.ServiceEdit;
+import com.LRProduct.api.account.service.ServiceEditREFAZER;
 import com.LRProduct.api.utils.ApiException;
 import com.LRProduct.api.utils.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class EditAccountController {
 
     @Autowired
-    ServiceEdit serviceEdit;
+    ServiceEditREFAZER serviceEdit;
 
     @PutMapping("/edit")
     public ResponseEntity<?> editController(@Valid @RequestBody AccountRequestEdit accountRequestEdit, HttpServletRequest request){
