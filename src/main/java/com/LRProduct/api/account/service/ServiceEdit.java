@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 @Service
-public class ServiceEditREFAZER {
+public class ServiceEdit {
     @Autowired
     JwtUtil jwtUtil;
 
@@ -27,6 +27,7 @@ public class ServiceEditREFAZER {
     public void validateEditAccount(String getToken, AccountRequestEdit accountRequestEdit){
 
         Optional<Account> email = accountRepository.findByEmail(accountRequestEdit.getEmail());
+
         if(email.isPresent()){
             throw new ApiException("Email não disponível.", "400", HttpStatus.BAD_REQUEST);
         }
@@ -37,6 +38,7 @@ public class ServiceEditREFAZER {
 
     }
 
+    //se alterar somente um campo o outro fica null.
      public AccountResponseEdit editAccount(AccountRequestEdit accountRequestEdit, HttpServletRequest request){
 
         String getToken = cookie.getTokenFromRequest(request);
@@ -45,8 +47,13 @@ public class ServiceEditREFAZER {
 
          Account account = jwtUtil.getLoggedUser(request, accountRepository);
 
-         account.setEmail(accountRequestEdit.getEmail());
-         account.setName(accountRequestEdit.getName());
+         if(accountRequestEdit.getEmail() != null){
+            account.setEmail(accountRequestEdit.getEmail());
+         }
+
+         if(accountRequestEdit.getName() != null){
+            account.setName(accountRequestEdit.getName());
+         }
 
          account = accountRepository.save(account);
 
