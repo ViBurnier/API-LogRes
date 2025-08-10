@@ -12,11 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AccountRequestEdit {
 
-    @NotBlank(message = "Nome é obrigatorio")
+    @Size(min = 1)
     private String name;
 
     @Email(message = "Email deve ter um formato válido")
-    @NotBlank(message = "Email é obrigatorio!")
     @Size(min = 10)
     private String email;
 }

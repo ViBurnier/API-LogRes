@@ -102,7 +102,6 @@ public class JwtUtil {
         return repo.findById(userId)
                 .filter(account -> account.getStatus() == Account.Status.ON)
                 .orElse(null);
-
     }
 
 
