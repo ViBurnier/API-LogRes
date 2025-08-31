@@ -40,8 +40,15 @@ public class ServiceAccount {
         }
 
         if(!Objects.equals(accountRequest.getPassword(), accountRequest.getPasswordTwo())){
-            throw new IllegalArgumentException("As senhas não coincidem");
+            throw new ApiException("As senhas não coincidem", "400", HttpStatus.BAD_REQUEST);
         }
+
+        
+        //obrigatorio um caracter especial, um numero e uma letra
+        if(!accountRequest.getPassword().matches("(?=.*[}{,.^?~=+\\-_\\/*\\-+.\\|@])(?=.*[a-zA-Z])(?=.*[0-9]).+")){
+            throw new ApiException("A senha não obedece o necessário.", "400", HttpStatus.BAD_REQUEST);
+        }
+
 
     }
 
