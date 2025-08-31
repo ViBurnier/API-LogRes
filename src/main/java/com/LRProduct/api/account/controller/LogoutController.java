@@ -28,7 +28,7 @@ public class LogoutController {
             return ResponseEntity.ok(ApiResponse.success("Logout realizado com sucesso.", "200"));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(ApiResponse.error(e.getMessage(), "400"));
+                    .body(ApiResponse.error(e.getMessage(), e.getCode()));
         }
     }
 }
