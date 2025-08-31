@@ -1,5 +1,6 @@
 package com.LRProduct.api.account.controller;
 
+import com.LRProduct.api.utils.ApiException;
 import com.LRProduct.api.utils.ApiResponse;
 import com.LRProduct.api.utils.CookieService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,9 +27,8 @@ public class LogoutController {
             cookieService.removeCookie("token", response);
             cookieService.removeCookie("userData", response);
             return ResponseEntity.ok(ApiResponse.success("Logout realizado com sucesso.", "200"));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(ApiResponse.error(e.getMessage(), e.getCode()));
+        } catch (ApiException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.error(e.getMessage(), e.getCode()));
         }
     }
 }

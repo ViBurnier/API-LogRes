@@ -37,6 +37,9 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private Status status = Status.ON;
 
+    @Column(nullable = false)
+    private String photo;
+
     public enum Role{
         USER,
         ADMIN,

@@ -37,7 +37,8 @@ public class ServiceAuth {
 
         Map<String, Object> error = new HashMap<>();
 
-        if(getToken != null){
+
+        if(jwtUtil.getLoggedUser(request, accountRepository) != null){
             throw new ApiException("Você já esta logado.", "400", HttpStatus.BAD_REQUEST);
         }
 

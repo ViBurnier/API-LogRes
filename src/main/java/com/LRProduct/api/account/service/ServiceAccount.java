@@ -5,6 +5,7 @@ import com.LRProduct.api.account.model.AccountRequestCreate;
 import com.LRProduct.api.account.repository.AccountRepository;
 import com.LRProduct.api.utils.ApiException;
 import com.LRProduct.api.utils.CookieService;
+import com.LRProduct.api.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,17 +22,16 @@ public class ServiceAccount {
     AccountRepository accountRepository;
 
     @Autowired
-    CookieService cookie;
+    JwtUtil jwtUtil;
 
 
     public void validateCreateNewAccount(AccountRequestCreate accountRequest, HttpServletRequest httpServletRequest){
 
-        String getToken = cookie.getTokenFromRequest(httpServletRequest);
-
         //não deixa criar conta logado.
-        if(getToken != null){
+        if(jwtUtil.getLoggedUser(httpServletRequest, accountRepository) != null){
             throw new ApiException("Você está logado, deslogue para criar uma conta.", "400", HttpStatus.BAD_REQUEST);
         }
+
 
         //verifica a disponibilidade do email.
         Optional<Account> email = accountRepository.findByEmail(accountRequest.getEmail());
@@ -48,7 +48,6 @@ public class ServiceAccount {
         if(!accountRequest.getPassword().matches("(?=.*[}{,.^?~=+\\-_\\/*\\-+.\\|@])(?=.*[a-zA-Z])(?=.*[0-9]).+")){
             throw new ApiException("A senha não obedece o necessário.", "400", HttpStatus.BAD_REQUEST);
         }
-
 
     }
 

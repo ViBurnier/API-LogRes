@@ -24,7 +24,7 @@ public class ServiceEdit {
     @Autowired
     AccountRepository accountRepository;
 
-    public void validateEditAccount(String getToken, AccountRequestEdit accountRequestEdit){
+    public void validateEditAccount(HttpServletRequest request, AccountRequestEdit accountRequestEdit){
 
         Optional<Account> email = accountRepository.findByEmail(accountRequestEdit.getEmail());
 
@@ -32,7 +32,7 @@ public class ServiceEdit {
             throw new ApiException("Email não disponível.", "400", HttpStatus.BAD_REQUEST);
         }
 
-        if(getToken == null){
+        if(jwtUtil.getLoggedUser(request, accountRepository) == null){
             throw new ApiException("Usuário deslogado", "400", HttpStatus.BAD_REQUEST);
         }
 
@@ -41,9 +41,9 @@ public class ServiceEdit {
     //se alterar somente um campo o outro fica null.
      public AccountResponseEdit editAccount(AccountRequestEdit accountRequestEdit, HttpServletRequest request){
 
-        String getToken = cookie.getTokenFromRequest(request);
 
-        validateEditAccount(getToken, accountRequestEdit);
+
+        validateEditAccount(request, accountRequestEdit);
 
          Account account = jwtUtil.getLoggedUser(request, accountRepository);
 
