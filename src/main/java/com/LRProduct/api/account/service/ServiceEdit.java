@@ -33,7 +33,7 @@ public class ServiceEdit {
         }
 
         if(getToken == null){
-            throw new ApiException("Não era pra você estar aqui!", "400", HttpStatus.BAD_REQUEST);
+            throw new ApiException("Usuário deslogado", "400", HttpStatus.BAD_REQUEST);
         }
 
     }
