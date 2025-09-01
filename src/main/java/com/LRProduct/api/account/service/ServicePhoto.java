@@ -1,5 +1,6 @@
 package com.LRProduct.api.account.service;
 
+import com.LRProduct.api.account.config.Config;
 import com.LRProduct.api.account.model.AccountResponsePhoto;
 import com.LRProduct.api.account.repository.AccountRepository;
 import com.LRProduct.api.utils.ApiException;
@@ -21,6 +22,8 @@ public class ServicePhoto {
     @Autowired
     JwtUtil jwtUtil;
 
+    @Autowired
+    Config config;
     public void validadePhotoAccount(HttpServletRequest request, AccountResponsePhoto photoFile){
 
         if(jwtUtil.getLoggedUser(request, accountRepository) != null){
@@ -35,11 +38,12 @@ public class ServicePhoto {
 
         String contentType = photo.getContentType();
         if (contentType == null || !config.getSupportedPhotoFormat().contains(contentType)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.error("400",
-                    "Formato de foto não suportado. Os formatos suportados são: " + String.join(", ", config.getSupportedPhotoFormat())));
+            throw new ApiException("Formato de foto não suportado. Os formatos suportados são: " + String.join(", ", config.getSupportedPhotoFormat()), "400", HttpStatus.BAD_REQUEST);
         }
 
-
+        if (photo.getSize() > config.getMaxPhotoSizeMb()) {
+            throw new ApiException("O tamanho da foto excede o limite de " + config.getMaxPhotoSizeMb() + "MB.", "413", HttpStatus.BAD_REQUEST);
+        }
     };
 
     public void photoAccount(AccountResponsePhoto accountResponsePhoto, HttpServletRequest request, AccountResponsePhoto photoFile){
