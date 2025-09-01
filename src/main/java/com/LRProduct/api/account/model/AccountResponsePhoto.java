@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 //Envia apenas os dados necessarios para exibicao
 public class AccountResponsePhoto {
-    private MultipartFile photoFile;
+    private String photoFile;
 
 
 }

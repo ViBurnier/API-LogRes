@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @AllArgsConstructor
 @Data
 @RestController
@@ -30,18 +32,18 @@ public class PhotoController {
     ServicePhoto servicePhoto;
 
     @PostMapping(value = "/upload/photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> photo(
-            @RequestParam("photo") MultipartFile photoFile,
-            HttpServletRequest request,
-            HttpServletResponse response
-    ){
+    public ResponseEntity<?> photo(AccountRequestPhoto accountRequestPhoto, HttpServletRequest request){
         try {
-            AccountResponsePhoto data = servicePhoto.photoAccount();
+            AccountResponsePhoto data = servicePhoto.photoAccount(accountRequestPhoto, request );
 
-            return ResponseEntity.ok(ApiResponse.success("Foto atualizada com sucesso.", "201"));
+            return ResponseEntity.ok(ApiResponse.success("Foto atualizada com sucesso.", "201", data));
         }
         catch (ApiException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.error(e.getMessage(), e.getCode()));
+        }
+
+        catch (IOException e) {
+            throw new RuntimeException(e);
         }
     };
 }

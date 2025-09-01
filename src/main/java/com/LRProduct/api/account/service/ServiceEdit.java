@@ -42,7 +42,6 @@ public class ServiceEdit {
      public AccountResponseEdit editAccount(AccountRequestEdit accountRequestEdit, HttpServletRequest request){
 
 
-
         validateEditAccount(request, accountRequestEdit);
 
          Account account = jwtUtil.getLoggedUser(request, accountRepository);

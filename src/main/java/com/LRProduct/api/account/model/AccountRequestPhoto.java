@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class AccountRequestPhoto {
 
-
     private MultipartFile photoFile;
 
 }
