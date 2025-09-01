@@ -23,6 +23,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 
+/*
+* !IDEIA!
+* Fazer um service para edicao de upload, exemplo: foto, background, curriculo, pdf...
+* e outro para campos, como o edit ja pronto faz.
+* */
+
 @Service
 public class ServicePhoto {
 
