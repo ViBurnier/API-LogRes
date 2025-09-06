@@ -56,7 +56,7 @@ public class ServicePhoto {
         if (contentType == null || !config.getSupportedPhotoFormat().contains(contentType)) {
             throw new ApiException("Formato de foto não suportado. Os formatos suportados são: " + String.join(", ", config.getSupportedPhotoFormat()), "400", HttpStatus.BAD_REQUEST);
         }
-        
+
         if (photo.getSize() > config.getMaxFileSize()) {
             throw new ApiException("O tamanho da foto excede o limite de " + config.getMaxPhotoSizeMb() + "MB.", "413", HttpStatus.BAD_REQUEST);
         }
