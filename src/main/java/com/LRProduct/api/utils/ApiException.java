@@ -8,11 +8,15 @@ public class ApiException extends RuntimeException{
 
     @Getter
      final String message;
-    @Getter
 
     @Getter
+     final String code;
+
+    @Getter
+    final HttpStatus httpStatus;
 
     public ApiException(String message, String code, HttpStatus httpStatus){
+        this.message = message;
         this.code =  code;
         this.httpStatus = httpStatus;
     }
