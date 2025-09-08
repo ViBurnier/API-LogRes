@@ -31,25 +31,20 @@ public class ServiceAuth {
     @Autowired
     CookieService cookie;
 
-    public Account validateLoginAccount(HttpServletRequest request, Optional<Account> opt, String password){
-
-        String getToken = cookie.getTokenFromRequest(request);
-
-        Map<String, Object> error = new HashMap<>();
-
+    public Account validateLoginAccount(HttpServletRequest request, Optional<Account> opt, String email, String password){
 
         if(jwtUtil.getLoggedUser(request, accountRepository) != null){
             throw new ApiException("Você já esta logado.", "400", HttpStatus.BAD_REQUEST);
         }
 
         if (opt.isEmpty()) {
-            throw new ApiException("Conta não encontrada.", "404", HttpStatus.NOT_FOUND);
+            throw new ApiException("Conta ou senha incorreta.", "404", HttpStatus.NOT_FOUND);
         }
 
         Account account = opt.get();
 
         if (!BCrypt.checkpw(password, account.getPassword())) {
-            throw new ApiException("Senha incorreta.", "401", HttpStatus.UNAUTHORIZED);
+            throw new ApiException("Conta ou senha incorreta.", "401", HttpStatus.UNAUTHORIZED);
         }
 
         if(!account.getStatus().name().equals("ON")){
@@ -67,7 +62,7 @@ public class ServiceAuth {
 
         Optional<Account> optFind = accountRepository.findByEmail(email.trim().toLowerCase());
 
-        Account account = validateLoginAccount(request, optFind, password);
+        Account account = validateLoginAccount(request, optFind, email, password);
 
         String token = jwtUtil.generateToken(email, account.getId());
 
