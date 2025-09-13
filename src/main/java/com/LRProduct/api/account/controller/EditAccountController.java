@@ -1,26 +1,22 @@
 package com.LRProduct.api.account.controller;
 
-import com.LRProduct.api.account.model.AccountRequestEdit;
-import com.LRProduct.api.account.model.AccountResponseEdit;
+import com.LRProduct.api.account.DTOs.AccountRequestEdit;
+import com.LRProduct.api.account.DTOs.AccountResponseEdit;
 import com.LRProduct.api.account.service.ServiceEdit;
 import com.LRProduct.api.utils.ApiException;
 import com.LRProduct.api.utils.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/account")
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 public class EditAccountController {
 
-    @Autowired
     ServiceEdit serviceEdit;
 
     @PutMapping("/edit")

@@ -1,8 +1,8 @@
 package com.LRProduct.api.account.service;
 
 import com.LRProduct.api.account.model.Account;
-import com.LRProduct.api.account.model.AccountRequestEdit;
-import com.LRProduct.api.account.model.AccountResponseEdit;
+import com.LRProduct.api.account.DTOs.AccountRequestEdit;
+import com.LRProduct.api.account.DTOs.AccountResponseEdit;
 import com.LRProduct.api.account.repository.AccountRepository;
 import com.LRProduct.api.utils.ApiException;
 import com.LRProduct.api.utils.CookieService;
@@ -24,7 +24,7 @@ public class ServiceEdit {
     @Autowired
     AccountRepository accountRepository;
 
-    public void validateEditAccount(String getToken, AccountRequestEdit accountRequestEdit){
+    public void validateEditAccount(HttpServletRequest request, AccountRequestEdit accountRequestEdit){
 
         Optional<Account> email = accountRepository.findByEmail(accountRequestEdit.getEmail());
 
@@ -32,8 +32,8 @@ public class ServiceEdit {
             throw new ApiException("Email não disponível.", "400", HttpStatus.BAD_REQUEST);
         }
 
-        if(getToken == null){
-            throw new ApiException("Não era pra você estar aqui!", "400", HttpStatus.BAD_REQUEST);
+        if(jwtUtil.getLoggedUser(request, accountRepository) == null){
+            throw new ApiException("Usuário deslogado", "400", HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -41,9 +41,8 @@ public class ServiceEdit {
     //se alterar somente um campo o outro fica null.
      public AccountResponseEdit editAccount(AccountRequestEdit accountRequestEdit, HttpServletRequest request){
 
-        String getToken = cookie.getTokenFromRequest(request);
 
-        validateEditAccount(getToken, accountRequestEdit);
+        validateEditAccount(request, accountRequestEdit);
 
          Account account = jwtUtil.getLoggedUser(request, accountRepository);
 
