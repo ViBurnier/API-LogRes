@@ -1,10 +1,8 @@
-package com.LRProduct.api.account.model;
+package com.LRProduct.api.account.DTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 //Envia apenas os dados necessarios para exibicao

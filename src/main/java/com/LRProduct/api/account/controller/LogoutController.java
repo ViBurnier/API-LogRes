@@ -20,7 +20,7 @@ import java.net.http.HttpResponse;
 @RequiredArgsConstructor
 @CrossOrigin
 public class LogoutController {
-    @Autowired
+
     CookieService cookieService;
 
     @PostMapping("/logout")

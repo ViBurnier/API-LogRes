@@ -1,6 +1,5 @@
-package com.LRProduct.api.account.model;
+package com.LRProduct.api.account.DTOs;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
@@ -20,7 +19,6 @@ public class AccountRequestCreate {
     @Email(message = "Email deve ter um formato válido")
     @NotBlank(message = "Email é obrigatorio!")
     @Size(min = 10)
-    @Column(unique = true)
     private String email;
 
     @NotBlank(message = "Senha é obrigatoria")

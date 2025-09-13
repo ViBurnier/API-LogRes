@@ -1,8 +1,8 @@
 package com.LRProduct.api.account.service;
 
 import com.LRProduct.api.account.model.Account;
-import com.LRProduct.api.account.model.AccountRequestEdit;
-import com.LRProduct.api.account.model.AccountResponseEdit;
+import com.LRProduct.api.account.DTOs.AccountRequestEdit;
+import com.LRProduct.api.account.DTOs.AccountResponseEdit;
 import com.LRProduct.api.account.repository.AccountRepository;
 import com.LRProduct.api.utils.ApiException;
 import com.LRProduct.api.utils.CookieService;

@@ -1,11 +1,10 @@
 package com.LRProduct.api.account.service;
 
 import com.LRProduct.api.account.model.Account;
-import com.LRProduct.api.account.model.AccountRequestLogin;
-import com.LRProduct.api.account.model.AccountResponseLogin;
+import com.LRProduct.api.account.DTOs.AccountRequestLogin;
+import com.LRProduct.api.account.DTOs.AccountResponseLogin;
 import com.LRProduct.api.account.repository.AccountRepository;
 import com.LRProduct.api.utils.ApiException;
-import com.LRProduct.api.utils.ApiResponse;
 import com.LRProduct.api.utils.CookieService;
 import com.LRProduct.api.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,8 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Service

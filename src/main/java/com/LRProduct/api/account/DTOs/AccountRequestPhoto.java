@@ -1,6 +1,5 @@
-package com.LRProduct.api.account.model;
+package com.LRProduct.api.account.DTOs;
 
-import jakarta.servlet.annotation.MultipartConfig;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -2,17 +2,14 @@ package com.LRProduct.api.account.service;
 
 import com.LRProduct.api.account.config.Config;
 import com.LRProduct.api.account.model.Account;
-import com.LRProduct.api.account.model.AccountRequestPhoto;
-import com.LRProduct.api.account.model.AccountResponsePhoto;
+import com.LRProduct.api.account.DTOs.AccountRequestPhoto;
+import com.LRProduct.api.account.DTOs.AccountResponsePhoto;
 import com.LRProduct.api.account.repository.AccountRepository;
 import com.LRProduct.api.utils.ApiException;
 import com.LRProduct.api.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

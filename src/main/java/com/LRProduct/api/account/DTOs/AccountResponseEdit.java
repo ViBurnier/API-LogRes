@@ -1,4 +1,4 @@
-package com.LRProduct.api.account.model;
+package com.LRProduct.api.account.DTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

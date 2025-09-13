@@ -1,10 +1,9 @@
 package com.LRProduct.api.account.service;
 
 import com.LRProduct.api.account.model.Account;
-import com.LRProduct.api.account.model.AccountRequestCreate;
+import com.LRProduct.api.account.DTOs.AccountRequestCreate;
 import com.LRProduct.api.account.repository.AccountRepository;
 import com.LRProduct.api.utils.ApiException;
-import com.LRProduct.api.utils.CookieService;
 import com.LRProduct.api.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
