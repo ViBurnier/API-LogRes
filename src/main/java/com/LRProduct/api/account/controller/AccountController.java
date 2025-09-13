@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class AccountController {
 
-    ServiceAccount serviceAccount;
+    private final ServiceAccount serviceAccount;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody AccountRequestCreate accountRequestCreate, HttpServletRequest request){
