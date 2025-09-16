@@ -21,7 +21,7 @@ import java.net.http.HttpResponse;
 @CrossOrigin
 public class LogoutController {
 
-    CookieService cookieService;
+    private final CookieService cookieService;
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletResponse response){

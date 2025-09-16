@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class EditAccountController {
 
-    ServiceEdit serviceEdit;
+    private final ServiceEdit serviceEdit;
 
     @PutMapping("/edit")
     public ResponseEntity<?> editController(@Valid @RequestBody AccountRequestEdit accountRequestEdit, HttpServletRequest request){

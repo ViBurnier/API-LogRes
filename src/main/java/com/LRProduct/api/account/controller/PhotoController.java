@@ -23,7 +23,7 @@ import java.io.IOException;
 public class PhotoController {
 
 
-    ServicePhoto servicePhoto;
+    private final ServicePhoto servicePhoto;
 
     @PostMapping(value = "/upload/photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> photo(AccountRequestPhoto accountRequestPhoto, HttpServletRequest request){

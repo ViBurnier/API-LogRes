@@ -68,7 +68,6 @@ public class ServiceAuth {
 
         return new AccountResponseLogin(
                 account.getEmail(),
-                account.getPassword(),
                 token
         );
     }

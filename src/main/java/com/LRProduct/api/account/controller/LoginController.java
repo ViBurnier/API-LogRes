@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class LoginController {
 
-    ServiceAuth serviceAuth;
+    private final ServiceAuth serviceAuth;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody AccountRequestLogin accountRequestLogin, HttpServletRequest request, HttpServletResponse response){
