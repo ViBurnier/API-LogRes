@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RequestMapping("/account")
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class LoginController {
     private final ServiceAuth serviceAuth;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody AccountRequestLogin accountRequestLogin, HttpServletRequest request, HttpServletResponse response){
+    public ResponseEntity<Map<String, Object>> login(@Valid @RequestBody AccountRequestLogin accountRequestLogin, HttpServletRequest request, HttpServletResponse response){
 
         try{
             AccountResponseLogin data = serviceAuth.loginAccount(accountRequestLogin, request, response);

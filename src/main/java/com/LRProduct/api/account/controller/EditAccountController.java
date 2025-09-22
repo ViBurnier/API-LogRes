@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RequestMapping("/account")
 @RestController
 @RequiredArgsConstructor
@@ -20,7 +22,7 @@ public class EditAccountController {
     private final ServiceEdit serviceEdit;
 
     @PutMapping("/edit")
-    public ResponseEntity<?> editController(@Valid @RequestBody AccountRequestEdit accountRequestEdit, HttpServletRequest request){
+    public ResponseEntity<Map<String, Object>> editController(@Valid @RequestBody AccountRequestEdit accountRequestEdit, HttpServletRequest request){
         try{
             AccountResponseEdit data = serviceEdit.editAccount(accountRequestEdit, request);
 

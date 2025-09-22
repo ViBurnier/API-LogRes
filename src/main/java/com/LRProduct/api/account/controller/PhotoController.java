@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Map;
 
 @AllArgsConstructor
 @Data
@@ -26,7 +27,7 @@ public class PhotoController {
     private final ServicePhoto servicePhoto;
 
     @PostMapping(value = "/upload/photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> photo(AccountRequestPhoto accountRequestPhoto, HttpServletRequest request){
+    public ResponseEntity<Map<String, Object>> photo(AccountRequestPhoto accountRequestPhoto, HttpServletRequest request){
         try {
             AccountResponsePhoto data = servicePhoto.photoAccount(accountRequestPhoto, request );
 

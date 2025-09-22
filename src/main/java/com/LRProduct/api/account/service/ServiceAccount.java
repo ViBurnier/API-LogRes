@@ -34,6 +34,7 @@ public class ServiceAccount {
 
         //verifica a disponibilidade do email.
         Optional<Account> email = accountRepository.findByEmail(accountRequest.getEmail());
+
         if(email.isPresent()){
             throw new ApiException("Email não disponível.", "400", HttpStatus.BAD_REQUEST);
         }

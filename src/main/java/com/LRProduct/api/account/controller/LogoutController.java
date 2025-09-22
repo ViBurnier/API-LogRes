@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.http.HttpResponse;
+import java.util.Map;
 
 @RequestMapping("/account")
 @RestController
@@ -24,7 +25,7 @@ public class LogoutController {
     private final CookieService cookieService;
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletResponse response){
+    public ResponseEntity<Map<String, Object>> logout(HttpServletResponse response){
         try{
             cookieService.removeCookie("token", response);
             cookieService.removeCookie("userData", response);
