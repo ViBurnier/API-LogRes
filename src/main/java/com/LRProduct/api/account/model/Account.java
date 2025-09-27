@@ -1,5 +1,6 @@
 package com.LRProduct.api.account.model;
 
+import com.LRProduct.api.account.controller.VerificationAccountController;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,6 +40,8 @@ public class Account {
 
     private String photo;
 
+    private VerificationAccount verificationAccount = VerificationAccount.OFF;
+
     public enum Role{
         USER,
         ADMIN,
@@ -46,6 +49,11 @@ public class Account {
     }
 
     public enum Status{
+        ON,
+        OFF
+    }
+
+    public enum VerificationAccount{
         ON,
         OFF
     }
