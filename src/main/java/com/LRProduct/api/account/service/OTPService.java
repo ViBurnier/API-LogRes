@@ -79,9 +79,16 @@ public class OTPService {
 
     public void verificationValidateAccount(HttpServletRequest request, AccountRequestVerifyAccount dto) {
         Account account = jwtUtil.getLoggedUser(request, accountRepository);
+
+        if(account.getVerificationAccount() == Account.VerificationAccount.ON){
+            throw new ApiException("Sua conta está verificada.", "401", HttpStatus.UNAUTHORIZED);
+        }
+
         SecretKey key = getUserKey(account.getEmail());
 
         Instant now = Instant.now();
+
+
 
         int expectedCode;
         try {
