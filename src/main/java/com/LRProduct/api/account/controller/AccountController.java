@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @AllArgsConstructor
 @Data
 @RestController
@@ -24,7 +26,7 @@ public class AccountController {
     private final ServiceAccount serviceAccount;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody AccountRequestCreate accountRequestCreate, HttpServletRequest request){
+    public ResponseEntity<Map<String, Object>> register(@Valid @RequestBody AccountRequestCreate accountRequestCreate, HttpServletRequest request){
 
         try {
             Account account = serviceAccount.createNewAccount(accountRequestCreate, request);

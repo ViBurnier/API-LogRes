@@ -3,8 +3,6 @@ package com.LRProduct.api.account.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
@@ -39,6 +37,9 @@ public class Account {
 
     private String photo;
 
+    @Enumerated(EnumType.STRING)
+    private VerificationAccount verificationAccount = VerificationAccount.OFF;
+
     public enum Role{
         USER,
         ADMIN,
@@ -46,6 +47,11 @@ public class Account {
     }
 
     public enum Status{
+        ON,
+        OFF
+    }
+
+    public enum VerificationAccount{
         ON,
         OFF
     }

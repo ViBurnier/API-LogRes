@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 public class Config implements WebMvcConfigurer{
     private final int cookieMaxAge = 48;
-    private final int tokenMaxAge = 48;
+    private final int tokenMaxAge = 1;
     private final boolean httpsOn = false;
     private final List<String> supportedPhotoFormat = List.of("image/jpeg", "image/png");
     private final int maxPhotoSizeMb = 1230;
