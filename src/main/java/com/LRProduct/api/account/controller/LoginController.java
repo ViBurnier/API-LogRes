@@ -27,7 +27,6 @@ public class LoginController {
 
         try{
             AccountResponseLogin data = serviceAuth.loginAccount(accountRequestLogin, request, response);
-            
 
             return ResponseEntity.ok(ApiResponse.success("Login realizado com sucesso.", "200", data));
         }catch (ApiException e) {
@@ -37,4 +36,6 @@ public class LoginController {
 
 
     }
+
+
 }

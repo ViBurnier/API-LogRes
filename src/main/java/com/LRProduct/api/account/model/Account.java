@@ -1,11 +1,8 @@
 package com.LRProduct.api.account.model;
 
-import com.LRProduct.api.account.controller.VerificationAccountController;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
@@ -40,6 +37,7 @@ public class Account {
 
     private String photo;
 
+    @Enumerated(EnumType.STRING)
     private VerificationAccount verificationAccount = VerificationAccount.OFF;
 
     public enum Role{
