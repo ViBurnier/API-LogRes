@@ -1,4 +1,4 @@
-package com.LRProduct.api.account.service;
+package com.LRProduct.api.serviceglobal;
 
 import com.LRProduct.api.utils.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +8,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ServiceMail {
+public class ServiceEmail {
     @Autowired
     private JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     private String remetente;
 
-    public String enviarEmail(String destinatario, String assunto, String mensagem){
+    public String sendEmail(String destinatario, String assunto, String mensagem){
 
         try{
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();

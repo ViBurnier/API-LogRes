@@ -24,7 +24,7 @@ public class ServiceAccount {
     JwtUtil jwtUtil;
 
 
-    public void validateCreateNewAccount(AccountRequestCreate accountRequest, HttpServletRequest httpServletRequest){
+    private void validateCreateNewAccount(AccountRequestCreate accountRequest, HttpServletRequest httpServletRequest){
 
         //não deixa criar conta logado.
         if(jwtUtil.getLoggedUser(httpServletRequest, accountRepository) != null){

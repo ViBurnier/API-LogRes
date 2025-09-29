@@ -28,7 +28,7 @@ public class ServiceAuth {
     @Autowired
     CookieService cookie;
 
-    public Account validateLoginAccount(HttpServletRequest request, Optional<Account> opt, String email, String password){
+    private Account validateLoginAccount(HttpServletRequest request, Optional<Account> opt, String email, String password){
 
         if(jwtUtil.getLoggedUser(request, accountRepository) != null){
             throw new ApiException("Você já esta logado.", "400", HttpStatus.BAD_REQUEST);

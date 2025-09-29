@@ -37,7 +37,7 @@ public class ServicePhoto {
 
     @Autowired
     Config config;
-    public void validadePhotoAccount(HttpServletRequest request, AccountRequestPhoto photoFile){
+    private void validadePhotoAccount(HttpServletRequest request, AccountRequestPhoto photoFile){
 
         if(jwtUtil.getLoggedUser(request, accountRepository) == null){
             throw new ApiException("Você não esta logado.", "400", HttpStatus.BAD_REQUEST);
@@ -74,7 +74,7 @@ public class ServicePhoto {
         );
     };
 
-    public String saveAndGetPhotoUrl(MultipartFile photoFile, Long userId) throws IOException {
+    private String saveAndGetPhotoUrl(MultipartFile photoFile, Long userId) throws IOException {
         String fileName = "user_" + userId + "_" + System.currentTimeMillis() + "_" + Objects.requireNonNull(photoFile.getOriginalFilename()).replaceAll("[^a-zA-Z0-9._-]", "");
 
         Path uploadPath = Paths.get(config.getUploadDir());

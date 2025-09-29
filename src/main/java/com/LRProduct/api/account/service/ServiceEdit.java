@@ -24,7 +24,7 @@ public class ServiceEdit {
     @Autowired
     AccountRepository accountRepository;
 
-    public void validateEditAccount(HttpServletRequest request, AccountRequestEdit accountRequestEdit){
+    private void validateEditAccount(HttpServletRequest request, AccountRequestEdit accountRequestEdit){
 
         Optional<Account> email = accountRepository.findByEmail(accountRequestEdit.getEmail());
 

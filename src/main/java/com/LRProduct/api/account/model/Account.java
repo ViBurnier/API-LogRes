@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -39,6 +40,11 @@ public class Account {
 
     @Enumerated(EnumType.STRING)
     private VerificationAccount verificationAccount = VerificationAccount.OFF;
+
+
+    private LocalDateTime verificationCodeExpired;
+
+    private int verificationCode;
 
     public enum Role{
         USER,

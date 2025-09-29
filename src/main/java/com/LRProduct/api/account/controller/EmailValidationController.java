@@ -1,30 +1,31 @@
 package com.LRProduct.api.account.controller;
 
-import com.LRProduct.api.account.DTOs.AccountRequestVerifyAccount;
-import com.LRProduct.api.account.service.OTPService;
+import com.LRProduct.api.account.DTOs.AccountRequestEmailValidation;
+import com.LRProduct.api.account.service.ServiceEmailValidation;
 import com.LRProduct.api.utils.ApiException;
 import com.LRProduct.api.utils.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 @RequestMapping("/account")
-@RestController
 @RequiredArgsConstructor
-@CrossOrigin
-public class ControllerVerificationAccount {
-            private final OTPService otpService;
+@RestController
+public class EmailValidationController {
+
+            private final ServiceEmailValidation serviceEmailValidation;
     @PostMapping("/sendCode")
     public ResponseEntity<Map<String, Object>> sendCodeEmail(HttpServletRequest request){
         try{
-            otpService.sendCodeEmail(request);
+
+            serviceEmailValidation.sendCodeEmail(request);
 
             return ResponseEntity.ok(ApiResponse.success("Código enviado para seu email com sucesso.", "200"));
         }
@@ -35,9 +36,10 @@ public class ControllerVerificationAccount {
     };
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> verifyCode(@Valid @RequestBody  AccountRequestVerifyAccount accountRequestVerifyAccount, HttpServletRequest request){
+    public ResponseEntity<Map<String, Object>> verifyCode(@Valid @RequestBody AccountRequestEmailValidation accountRequestEmailValidation, HttpServletRequest request){
         try {
-            otpService.verificationValidateAccount(request, accountRequestVerifyAccount);
+            serviceEmailValidation.validationCode(request, accountRequestEmailValidation);
+
             return ResponseEntity.ok(ApiResponse.success("Conta verificada com sucesso.", "200"));
         }
         catch (ApiException e){
@@ -45,6 +47,4 @@ public class ControllerVerificationAccount {
                     .body(ApiResponse.error(e.getMessage(), e.getCode()));
         }
     }
-
-
 }
