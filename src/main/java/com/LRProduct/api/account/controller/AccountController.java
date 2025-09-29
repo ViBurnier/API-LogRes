@@ -31,6 +31,7 @@ public class AccountController {
         try {
             Account account = serviceAccount.createNewAccount(accountRequestCreate, request);
 
+            
             AccountResponseCreate accountResponseModel = new AccountResponseCreate(
                     account.getEmail(),
                     account.getName(),

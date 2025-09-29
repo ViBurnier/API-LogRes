@@ -32,6 +32,7 @@ public class ServiceEmailValidation {
         LocalDateTime timeExpired = timeCurrent.plusMinutes(5);
 
 
+
         account.setVerificationCode(code);
         account.setVerificationCodeExpired(timeExpired);
         accountRepository.save(account);
@@ -57,12 +58,8 @@ public class ServiceEmailValidation {
 
         Account account = jwtUtil.getLoggedUser(request, accountRepository);
 
-        if(account.getVerificationCode() != accountRequestEmailValidation.getCode()){
-            throw new ApiException("Codigo errado", "401", HttpStatus.UNAUTHORIZED);
-        }
 
-        account.setVerificationAccount(Account.VerificationAccount.ON);
-        accountRepository.save(account);
+
     }
 
 

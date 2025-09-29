@@ -38,8 +38,7 @@ public class Account {
 
     private String photo;
 
-    @Enumerated(EnumType.STRING)
-    private VerificationAccount verificationAccount = VerificationAccount.OFF;
+
 
 
     private LocalDateTime verificationCodeExpired;
@@ -57,8 +56,5 @@ public class Account {
         OFF
     }
 
-    public enum VerificationAccount{
-        ON,
-        OFF
-    }
+
 }
