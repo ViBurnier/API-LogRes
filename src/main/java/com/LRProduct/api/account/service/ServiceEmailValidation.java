@@ -59,7 +59,6 @@ public class ServiceEmailValidation {
         Account account = jwtUtil.getLoggedUser(request, accountRepository);
 
 
-
     }
 
 
