@@ -50,7 +50,8 @@ public class ServiceAccount {
         }
 
     }
-
+//----TESTE----
+//criar o account, antes de salvar preciso chamar a classe de verificação de email.
     public Account createNewAccount(AccountRequestCreate accountRequestModel, HttpServletRequest request){
 
         validateCreateNewAccount(accountRequestModel, request);
