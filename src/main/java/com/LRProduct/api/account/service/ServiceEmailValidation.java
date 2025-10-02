@@ -38,6 +38,9 @@ public class ServiceEmailValidation {
         accountRepository.save(account);
     }
 
+//vou precisar pegar o email do campo de criação de usuário
+//para usar nesse método. Verificar se: existe algum jeito de validar a existência do email.
+//esse método vai ser chama por outro na criação de usuário, antes do user ser salvo no BD.
     public void sendCodeEmail(HttpServletRequest request) {
 
         if(jwtUtil.getLoggedUser(request, accountRepository) == null){
